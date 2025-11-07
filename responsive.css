@@ -1,0 +1,58 @@
+/* 響應式設計 - 手機版本 */
+@media (max-width: 480px) {
+  .wrapper {
+    padding: 0;
+  }
+
+  .container {
+    padding: 1rem;
+    border-radius: 0;
+  }
+
+  .results {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .result {
+    margin: 0;
+  }
+
+  .social-section {
+    margin-top: 1.5rem;
+  }
+}
+
+/* 平板和桌面版本通用樣式 */
+@media (min-width: 481px) {
+  .results {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .result-content {
+    padding: 0.2rem 0;
+  }
+}
+
+/* 響應式設計 - 平板版本 */
+@media (min-width: 481px) and (max-width: 768px) {
+  .container {
+    padding: 1.5rem;
+    border-radius: calc(var(--radius) * 0.75);
+  }
+}
+
+/* 響應式設計 - 桌面版本 */
+@media (min-width: 769px) {
+  .container {
+    max-width: 1200px;
+    padding: 2rem;
+  }
+
+  .results {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
