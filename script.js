@@ -15,6 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const LATENCY_THRESHOLD = 50; // 延遲差異閾值 (ms)
   const MAIN_NODE_WEIGHT = 0.8; // 主要節點權重
 
+  // 如果使用者進入時帶有 #/register?code=...，保存起來以便檢測完後帶入檢測後域名
+  const registerHash = (window.location.hash && window.location.hash.startsWith('#/register')) ? window.location.hash : null;
+
   /** 測試節點延遲 */
   async function pingSite(url) {
     let total = 0, successCount = 0;
@@ -106,8 +109,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function redirect(url, latency) {
-    const fullUrl = url + window.location.search + window.location.hash;
-    updateLoadingStatus(`找到最快节点 (${Math.round(latency)} ms)，即将跳转...`, true);
+    // 若使用者最初帶入 registerHash，則使用它；否則採用當前 location.hash
+    const hashToUse = registerHash ? registerHash : window.location.hash;
+    const fullUrl = url + window.location.search + (hashToUse || '');
+    if (registerHash) {
+      updateLoadingStatus(`找到最快节点 (${Math.round(latency)} ms)，检测后将带入注册码并跳转...`, true);
+    } else {
+      updateLoadingStatus(`找到最快节点 (${Math.round(latency)} ms)，即将跳转...`, true);
+    }
     setTimeout(() => { window.location.href = fullUrl; }, REDIRECT_DELAY);
   }
 
