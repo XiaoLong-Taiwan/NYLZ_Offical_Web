@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   const backupSites = [
     "https://dash-alt.nylz.xyz",
-    "https://dash-alt.netlib.re"
+    "https://dash-alt.nylz.netlib.re"
   ];
 
   const PING_TIMES = 3;
