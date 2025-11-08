@@ -71,25 +71,31 @@ document.addEventListener("DOMContentLoaded", () => {
     const el = document.getElementById(`result${id}`);
     const latencyEl = el.querySelector(".latency");
     
-    // 移除所有可能的狀態類
+    // 移除結果容器與延遲文字上的狀態類別
+    el.classList.remove("excellent", "good", "normal", "slow", "very-slow", "error", "fastest");
     latencyEl.classList.remove("excellent", "good", "normal", "slow", "very-slow", "error");
     
     if (latency === Infinity) {
       latencyEl.textContent = "无法连接";
+      el.classList.add("error");
       latencyEl.classList.add("error");
     } else {
       latencyEl.textContent = `${Math.round(latency)} ms`;
-      
-      // 根據延遲值添加對應的類
+      // 閾值： <100 綠, <200 藍, <500 黃, <1000 紅, >=1000 紫
       if (latency < 100) {
+        el.classList.add("excellent");
         latencyEl.classList.add("excellent");
       } else if (latency < 200) {
+        el.classList.add("good");
         latencyEl.classList.add("good");
       } else if (latency < 500) {
+        el.classList.add("normal");
         latencyEl.classList.add("normal");
       } else if (latency < 1000) {
+        el.classList.add("slow");
         latencyEl.classList.add("slow");
       } else {
+        el.classList.add("very-slow");
         latencyEl.classList.add("very-slow");
       }
     }
